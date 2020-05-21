@@ -38,3 +38,7 @@ void read_inode(int i, struct inode* node);
 int32_t acquire_inode();
 
 void delete_inode(int inode_number);
+
+void prepare_inode_as_dir(int inode_number, int parent_inode_number);
+
+int get_name_by_id(int dir_inode_num, int wanted_id, char* ans_place);

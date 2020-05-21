@@ -16,7 +16,10 @@ static int free_blocks = block_num;
 static int cur_id = 1;
 static int cur_directory = 0;
 static char cwd[PATH_MAX];
+static char to_dir_path[PATH_MAX];
 static char* path;
+static int LOCAL_PATH_MAX = PATH_MAX;
+static int MAX_FILE = inode_block_num*block_size;
 
 
 

@@ -65,12 +65,19 @@ int32_t acquire_block()
     return block_num;
 }
 
+void ret_block_text(int num, char* place)
+{
+  struct defblock* cur_block = create_block();
+  read_block(num, cur_block);
+  strcpy(place, cur_block->data);
+  free(cur_block);
+}
+
 void out_block(int num)
 {
-    struct defblock* cur_block = create_block();
-    read_block(num, cur_block);
-    printf("%s", cur_block->data);
-    free(cur_block);
+    char text[block_size];
+    ret_block_text(num, text);
+    printf("%s", text);
 }
 
 void fill_block_origin(char* name, char* type, int num, struct defblock* block)

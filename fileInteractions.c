@@ -115,6 +115,7 @@ void add_dir(char* name)
     struct inode* dir_inode = create_node();
     dir_inode->is_dir = 1;
     dump_inode(dir_num, dir_inode);
+    prepare_inode_as_dir(dir_num, cur_directory);
     for(int i = 0; i < inode_block_num; ++i)
     {
         if(cur_dir->blocks[i] == -1)

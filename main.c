@@ -22,18 +22,37 @@
 #include "userEndInteractions.h"
 #include "userEndInteractions.c"
 
+void some_test()
+{
+  char* pathik = "/lol/haha/kek";
+  char place[LOCAL_PATH_MAX];
+  int start_point = 1;
+  while(start_point < strlen(pathik))
+  {
+    start_point = get_next_dir_name(start_point, pathik, place);
+    if(start_point < strlen(pathik))
+      printf("%s ", place);
+  }
+}
+
 
 int main() {
+  //some_test();
+  //return 0;
     if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        strcat(cwd,  "/file.txt");
+        path = malloc(strlen(cwd) + strlen("/file.txt"));
+        strcpy(path, cwd);
+        strcat(path,  "/");
+        strcpy(to_dir_path, path);
+        strcat(path,  "file.txt");
     }
     else
     {
         printf("SOMETHING WENT WRONG");
         return 1;
     }
-    path = malloc(strlen(cwd) + strlen("/file.txt"));
-    strcpy(path, cwd);
+
+
     greetings();
     interactions_with_user();
     free(path);

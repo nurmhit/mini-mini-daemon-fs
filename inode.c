@@ -124,3 +124,57 @@ void delete_inode(int inode_number)
     free_inodes++;
     free(cur_node);
 }
+
+void prepare_inode_as_dir(int inode_number, int parent_inode_number)
+{
+  struct inode* cur_node = create_node();
+  read_inode(inode_number, cur_node);
+
+
+  int cur_dir_block = acquire_block();
+  struct defblock* cur_dir = create_block();
+  read_block(cur_dir_block, cur_dir);
+  fill_block_origin(".", "dir", cur_dir_block, cur_dir);
+  dump_block(cur_dir_block, cur_dir);
+
+  int parent_dir_block_num = acquire_block();
+  struct defblock* parent_dir_block = create_block();
+  read_block(parent_dir_block_num, parent_dir_block);
+  fill_block_origin("..", "dir", parent_inode_number, parent_dir_block);
+  dump_block(parent_dir_block_num, parent_dir_block);
+
+  free(parent_dir_block);
+  free(cur_dir);
+
+  cur_node->blocks[0] = cur_dir_block;
+  cur_node->blocks[1] = parent_dir_block_num;
+
+  dump_inode(inode_number, cur_node);
+
+  free(cur_node);
+}
+
+int get_name_by_id(int dir_inode_num, int wanted_id, char* ans_place)
+{
+  struct inode* cur_dir = create_node();
+  read_inode(dir_inode_num, cur_dir);
+  for(int i = 0;  i < inode_block_num; ++i)
+  {
+    if(cur_dir->blocks[i] != -1)
+    {
+      struct defblock* blocki = create_block();
+      read_block(cur_dir->blocks[i], blocki);
+      char type[10];
+      int num;
+      sscanf(blocki->data, "%s %s %d", ans_place, type, &num);
+      free(blocki);
+      if(num == wanted_id)
+      {
+        free(cur_dir);
+        return 0;
+      }
+    }
+  }
+  return 1;
+
+}

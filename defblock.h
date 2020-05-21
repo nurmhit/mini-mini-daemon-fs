@@ -26,6 +26,8 @@ void read_block(int i, struct defblock* block);
 
 int32_t acquire_block();
 
+void ret_block_text(int num, char* place);
+
 void out_block(int num);
 
 void fill_block_origin(char* name, char* type, int num, struct defblock* block);
