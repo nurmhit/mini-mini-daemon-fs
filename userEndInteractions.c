@@ -69,6 +69,7 @@ void cat(char* filename)
         }
     }
     printf("\n");
+    fflush(stdout);
     free(cur_dir);
 }
 
@@ -141,6 +142,7 @@ void ls()
     }
     if(non_zero != 0)
       printf("\n");
+    fflush(stdout);
     free(cur_dir);
 }
 
@@ -480,7 +482,7 @@ void load(char *filename)
 {
 
   char path_to_f[LOCAL_PATH_MAX];
-  strcpy(path_to_f, to_dir_path);
+  strcpy(path_to_f, "/home/parallels/Desktop/");
   strcat(path_to_f, filename);
   fflush(stdout);
   int fd = open(path_to_f, O_RDONLY);
@@ -493,18 +495,21 @@ void load(char *filename)
 void store(char *filename)
 {
   char path_to_f[LOCAL_PATH_MAX];
-  strcpy(path_to_f, to_dir_path);
+  strcpy(path_to_f, "/home/parallels/Desktop/");
   strcat(path_to_f, filename);
+
+
 
   char buf[MAX_FILE];
   ret_text(filename, buf);
 
   //SECOND WAY TO DO THIS, JUST IN CASE
-  /*FILE *f = fopen(path_to_f, "wb+");
+  FILE *f = fopen(path_to_f, "wb+");
+  printf("%s\n", path_to_f);
   fwrite(buf, sizeof(char), strlen(buf), f);
-  fclose(f);*/
+  fclose(f);
 
-  int fd = open(filename, O_WRONLY);
+  /*int fd = open(filename, O_WRONLY);
   if(fd == -1)
   {
     int fd2 = open(filename, O_CREAT);
@@ -513,5 +518,5 @@ void store(char *filename)
   }
 
   write(fd, buf, strlen(buf));
-  close(fd);
+  close(fd);*/
 }

@@ -11,15 +11,15 @@
 #include <stdbool.h>
 
 struct bitmap_inodes{
-    uint8_t is_used[inode_num];
+    uint8_t is_used[128];
 };
 
 struct bitmap_blocks{
-    uint8_t is_used[block_num];
+    uint8_t is_used[128];
 };
 
 static const int offset_inodebitmap = sizeof(struct superblock);
-static const int offset_blocksbitmap = offset_inodebitmap + inode_num;
+int offset_blocksbitmap;
 
 uint8_t get_mask_add(int n);
 

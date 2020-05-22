@@ -11,10 +11,10 @@
 #include <stdlib.h>
 
 struct defblock{
-    char data[block_size];
+    char data[128];
 };
 
-static const int offset_blocks = offset_inodes + sizeof(struct inode);
+int offset_blocks;
 
 struct defblock* create_block();
 

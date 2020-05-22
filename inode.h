@@ -20,10 +20,10 @@ struct inode{
     uint32_t id_creation, id_group;
     uint32_t is_dir, num_in_row;
     uint32_t hard_link_counter;
-    int32_t blocks[inode_block_num];
+    int32_t blocks[16];
 };
 
-static const int offset_inodes = offset_blocksbitmap + block_num;
+int offset_inodes;
 
 struct inode* create_node();
 

@@ -7,6 +7,7 @@
 int add_small_file(char* content)
 {
     int ans = -1;
+    printf("\n%d %d %d\n", free_inodes, free_blocks, inode_block_num);
     if(free_inodes > 0 && free_blocks >= inode_block_num)
     {
         FILE *f = fopen(path, "rb+");
